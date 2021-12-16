@@ -1,0 +1,145 @@
+﻿@page "/"
+
+@using BusinessLogic
+@using Application.Enums
+@using Application.Data
+
+@inject Calculation calculation
+@inject InputValues inputValues
+@inject CalculatedValues calculatedValues
+
+
+<link href="css/ProbeNutritionCSS.css" rel="stylesheet" />
+
+<div class="row">
+
+    <div class="col-2">
+
+        <MudText Typo="Typo.h6">Indtast værdier</MudText>
+
+        <MudTextField T="double" @bind-Value="@inputValues.Height" Label="Indtast højde (cm)"></MudTextField>
+
+        <MudTextField T="double" @bind-Value="@inputValues.Weight" Label="Indtast vægt (kg)"></MudTextField>
+
+        <MudSelect T="Activity" Label="Aktivitet" @bind-Value="@inputValues.ActivityLevel">
+
+            @foreach (Activity act in Enum.GetValues(typeof(Activity)))
+            {
+                <MudSelectItem Value="@act">@act</MudSelectItem>
+            }
+
+        </MudSelect>
+
+        <MudSelect T="Stress" Label="Stress" @bind-Value="@inputValues.StressLevel">
+
+            @foreach (Stress stress in Enum.GetValues(typeof(Stress)))
+            {
+                <MudSelectItem Value="@stress">@stress</MudSelectItem>
+            }
+
+        </MudSelect>
+
+        <MudSelect T="WeightGain" Label="Vægtøgning" @bind-Value="@inputValues.WeightGain">
+
+            @foreach (WeightGain weightGain in Enum.GetValues(typeof(WeightGain)))
+            {
+                <MudSelectItem Value="@weightGain">@weightGain</MudSelectItem>
+            }
+
+        </MudSelect>
+
+        <MudTextField T="double" Label="Forventet aspirat" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedAspirat"></MudTextField>
+        <MudTextField T="double" Label="Forventet dræntab" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedDrainageLoss"></MudTextField>
+        <MudTextField T="double" Label="Forventet diurese" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedDiurese"></MudTextField>
+        <MudTextField T="double" Label="Forventet andet" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedOther"></MudTextField>
+
+        <MudButton Class="marginTop5" OnClick="calculation.Calculate" Variant="Variant.Filled">Beregn</MudButton>
+
+    </div>
+
+    <div class="col-2">
+
+        <MudText Typo="Typo.h6">Beregninger</MudText>
+
+        <MudTextField Label="BMI" Disabled="true" @bind-Value="@calculatedValues.BMI"></MudTextField>
+        <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kJ/døgn" Disabled="true" @bind-Value="@calculatedValues.RequiredEnergyKJPerDay"></MudTextField>
+        <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kcal/døgn" Disabled="true" @bind-Value="@calculatedValues.RequiredEnergyKcalPerDay"></MudTextField>
+        <MudTextField Label="Proteinbehov" Adornment="Adornment.End" AdornmentText="g/døgn" Disabled="true" @bind-Value="@calculatedValues.RequiredProteinGramPerDay"></MudTextField>
+        <MudTextField Label="Væskebehov" Adornment="Adornment.End" AdornmentText="ml/døgn" Disabled="true" @bind-Value="@calculatedValues.RequiredLiquidMLPerDay"></MudTextField>
+        <MudTextField Label="Perspiratio incl. tp" Adornment="Adornment.End" AdornmentText="ml/døgn" Disabled="true" @bind-Value="@calculatedValues.Perspiratio"></MudTextField>
+        <MudTextField Label="Forbrændingsvand" Adornment="Adornment.End" AdornmentText="ml/døgn" Disabled="true" @bind-Value="@calculatedValues.Burning"></MudTextField>
+
+    </div>
+
+    <div class="col-2">
+
+        <MudText Typo="Typo.h6">Planlagt indgift (drink)</MudText>
+
+        <MudTextField T="int" Label="Fresubin 2 kcal"></MudTextField>
+        <MudTextField T="int" Label="Nutridrink Compact Protein"></MudTextField>
+
+        <MudButton Class="marginTop5" OnClick="calculation.Calculate" Variant="Variant.Filled">Beregn</MudButton>
+
+    </div>
+
+    <div class="col-4">
+
+        <MudText Typo="Typo.h6">Sondeernæring</MudText>
+
+        <MudList>
+
+            @foreach (ProbeType type in probeTypes)
+            {
+                <MudListItem>
+                    <MudText><strong>@type.Name</strong></MudText>
+                    <label>@type.EnergyKcalPerDosisML</label>
+                    <label>@type.ProteinPerDosisL</label>
+                    <label>@type.Dosis</label>
+                    <label>@type.AdditionalLiquid</label>
+                    <label>@type.RequiredEnergyKcal</label>
+                    <label>@type.RequiredProtein</label>
+                    <label>@type.ReceivedEnergyKcal</label>
+                    <label>@type.ReceivedProtein</label>
+                    <label>@type.EnergyKcalDifference</label>
+                    <label>@type.ProteinGramDifference</label>
+                </MudListItem>
+            }
+
+            <MudListItem>
+
+
+            </MudListItem>
+
+        </MudList>
+
+    </div>
+
+</div>
+
+
+@*<span>
+        <MudText Class=".unitWidth">BMI</MudText>
+        <MudText Class="floatRight">@calculation.BMI</MudText>
+    </span>*@
+
+@code{
+
+    ProbeType[] probeTypes = new[]
+    {
+        new ProbeType() { Name = "Nutrison Protein Plus", EnergyKcalPerDosisML = 1.25, ProteinPerDosisL = 63 },
+        new ProbeType() { Name = "Fresubin Energy", EnergyKcalPerDosisML = 1.5, ProteinPerDosisL = 56 },
+        new ProbeType() { Name = "Fresubin 2 kcal", EnergyKcalPerDosisML = 2, ProteinPerDosisL = 100 },
+        new ProbeType() { Name = "Fresubin Original", EnergyKcalPerDosisML = 1, ProteinPerDosisL = 38 },
+    };
+
+    void GetEnumDescriptions()
+    {
+        var yo = inputValues.ActivityLevel.GetDescription();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        GetEnumDescriptions();
+    }
+}

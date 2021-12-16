@@ -1,0 +1,21 @@
+﻿.unitWidth{
+    width: fit-content;
+}
+
+.floatRight {
+    float: right;
+}
+
+.floatLeft{
+    float: left;
+}
+
+.marginTop5{
+    margin-top: 5%;
+}
+
+.topBox{
+    position: absolute;
+    background-color: lightgray;
+    margin-bottom: 5%;
+}
