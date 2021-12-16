@@ -15,7 +15,7 @@
 
     <div class="col-2">
 
-        <MudText Typo="Typo.h6">Indtast værdier</MudText>
+        <MudText Typo="Typo.h6">1) Indtast værdier</MudText>
 
         <MudTextField T="double" @bind-Value="@inputValues.Height" Label="Indtast højde (cm)"></MudTextField>
 
@@ -53,55 +53,70 @@
         <MudTextField T="double" Label="Forventet diurese" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedDiurese"></MudTextField>
         <MudTextField T="double" Label="Forventet andet" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedOther"></MudTextField>
 
-        <MudButton Class="marginTop5" OnClick="calculation.Calculate" Variant="Variant.Filled">Beregn</MudButton>
+        <MudButton Class="marginTop5" Color="Color.Primary" OnClick="calculation.Calculate" Variant="Variant.Filled">Beregn</MudButton>
 
     </div>
+
+    <MudDivider Vertical="true"></MudDivider>
 
     <div class="col-2">
 
-        <MudText Typo="Typo.h6">Beregninger</MudText>
+        <MudText Typo="Typo.h6">2) Beregninger</MudText>
 
-        <MudTextField Label="BMI" Disabled="true" @bind-Value="@calculatedValues.BMI"></MudTextField>
-        <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kJ/døgn" Disabled="true" @bind-Value="@calculatedValues.RequiredEnergyKJPerDay"></MudTextField>
-        <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kcal/døgn" Disabled="true" @bind-Value="@calculatedValues.RequiredEnergyKcalPerDay"></MudTextField>
-        <MudTextField Label="Proteinbehov" Adornment="Adornment.End" AdornmentText="g/døgn" Disabled="true" @bind-Value="@calculatedValues.RequiredProteinGramPerDay"></MudTextField>
-        <MudTextField Label="Væskebehov" Adornment="Adornment.End" AdornmentText="ml/døgn" Disabled="true" @bind-Value="@calculatedValues.RequiredLiquidMLPerDay"></MudTextField>
-        <MudTextField Label="Perspiratio incl. tp" Adornment="Adornment.End" AdornmentText="ml/døgn" Disabled="true" @bind-Value="@calculatedValues.Perspiratio"></MudTextField>
-        <MudTextField Label="Forbrændingsvand" Adornment="Adornment.End" AdornmentText="ml/døgn" Disabled="true" @bind-Value="@calculatedValues.Burning"></MudTextField>
+        <MudTextField Label="BMI" ReadOnly="true" @bind-Value="@calculatedValues.BMI"></MudTextField>
+        <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kJ/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredEnergyKJPerDay"></MudTextField>
+        <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kcal/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredEnergyKcalPerDay"></MudTextField>
+        <MudTextField Label="Proteinbehov" Adornment="Adornment.End" AdornmentText="g/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredProteinGramPerDay"></MudTextField>
+        <MudTextField Label="Perspiratio incl. tp" Adornment="Adornment.End" AdornmentText="ml/døgn" ReadOnly="true" @bind-Value="@calculatedValues.Perspiratio"></MudTextField>
+        <MudTextField Label="Forbrændingsvand" Adornment="Adornment.End" AdornmentText="ml/døgn" ReadOnly="true" @bind-Value="@calculatedValues.Burning"></MudTextField>
+        <MudTextField Label="Væskebehov i alt" Adornment="Adornment.End" AdornmentText="ml/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredLiquidMLPerDay"></MudTextField>
 
     </div>
+
+    <MudDivider Vertical="true"></MudDivider>
 
     <div class="col-2">
 
-        <MudText Typo="Typo.h6">Planlagt indgift (drink)</MudText>
+        <MudText Typo="Typo.h6">3) Planlagt indgift (drink)</MudText>
 
-        <MudTextField T="int" Label="Fresubin 2 kcal"></MudTextField>
-        <MudTextField T="int" Label="Nutridrink Compact Protein"></MudTextField>
+        <MudTextField T="int" Adornment="Adornment.End" AdornmentText="ml" Label="Fresubin 2 kcal"></MudTextField>
+        <MudTextField T="int" Adornment="Adornment.End" AdornmentText="ml" Label="Nutridrink Compact Protein"></MudTextField>
 
-        <MudButton Class="marginTop5" OnClick="calculation.Calculate" Variant="Variant.Filled">Beregn</MudButton>
+        <MudButton Class="marginTop5" Color="Color.Primary" OnClick="calculation.Calculate" Variant="Variant.Filled">Beregn</MudButton>
 
     </div>
 
-    <div class="col-4">
+    <MudDivider Vertical="true"></MudDivider>
 
-        <MudText Typo="Typo.h6">Sondeernæring</MudText>
+    <div class="col-5">
+
+        <MudText Typo="Typo.h6">4) Sondeernæring</MudText>
 
         <MudList>
 
             @foreach (ProbeType type in probeTypes)
             {
                 <MudListItem>
+
                     <MudText><strong>@type.Name</strong></MudText>
-                    <label>@type.EnergyKcalPerDosisML</label>
-                    <label>@type.ProteinPerDosisL</label>
-                    <label>@type.Dosis</label>
-                    <label>@type.AdditionalLiquid</label>
-                    <label>@type.RequiredEnergyKcal</label>
-                    <label>@type.RequiredProtein</label>
-                    <label>@type.ReceivedEnergyKcal</label>
-                    <label>@type.ReceivedProtein</label>
-                    <label>@type.EnergyKcalDifference</label>
-                    <label>@type.ProteinGramDifference</label>
+
+                    <div class="row">
+                        <MudTextField Class="width5 floatRight marginRight2" Label="Dosis" @bind-Value="@type.Dosis" ReadOnly="true"></MudTextField>
+                        <MudTextField Class="width5 floatRight" Label="Supplerende væske" @bind-Value="@type.AdditionalLiquid" ReadOnly="true"></MudTextField>
+                    </div>
+
+                    <div class="row">
+                        <MudTextField Class="floatRight width5 marginRight2" Label="Energi - behov" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.RequiredEnergyKcal" ReadOnly="true"></MudTextField>
+                        <MudTextField Class="floatRight width5 marginRight2" Label="Energi - indhold" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.ReceivedEnergyKcal" ReadOnly="true"></MudTextField>
+                        <MudTextField Class="floatRight width5" Label="Energi - difference" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.EnergyKcalDifference" ReadOnly="true"></MudTextField>
+                    </div>
+
+                    <div class="row">
+                        <MudTextField Class="floatRight width5 marginRight2" Label="Protein - behov" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.RequiredProtein" ReadOnly="true"></MudTextField>
+                        <MudTextField Class="floatRight width5 marginRight2" Label="Protein - indhold" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ReceivedProtein" ReadOnly="true"></MudTextField>
+                        <MudTextField Class="floatRight width5" Label="Protein - difference" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ProteinGramDifference" ReadOnly="true"></MudTextField>
+                    </div>
+
                 </MudListItem>
             }
 

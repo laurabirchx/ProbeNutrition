@@ -2,6 +2,14 @@
     width: fit-content;
 }
 
+.width5{
+    width: 2%;
+}
+
+.width95 {
+    width: 95%;
+}
+
 .floatRight {
     float: right;
 }
@@ -12,6 +20,10 @@
 
 .marginTop5{
     margin-top: 5%;
+}
+
+.marginRight2{
+    margin-right: 2%;
 }
 
 .topBox{
