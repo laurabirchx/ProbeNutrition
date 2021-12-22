@@ -5,7 +5,7 @@ namespace BusinessLogic
 {
     public class Calculation
     {
-        public InputValues InputVals = new InputValues();
+        public InputValues InputVals; //= new InputValues();
         public CalculatedValues CalculatedVals = new CalculatedValues();
 
         public void Calculate()
