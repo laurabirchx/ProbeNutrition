@@ -17,298 +17,360 @@
 </style>
 
 
-    <MudGrid>
-        <MudItem >
-            <MudGrid Spacing="3" Justify="Justify.Center">
+<MudGrid>
+    <MudItem>
+        <MudGrid Spacing="3" Justify="Justify.Center">
+
+
+            <MudItem xs="8" sm="6" md="4" lg="3" xl="2">
+                <MudCard Elevation="3">
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6">1) Indtast patient værdier</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.TwoTone.PersonalInjury" Color="Color.Default" />
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudPaper Square="true">
+                            <MudList>
+
+
+                                <MudListItem Avatar="@Icons.TwoTone.MonitorWeight">
+                                    <MudTextField T="double" @bind-Value="@inputValues.Height" Label="(cm)"></MudTextField>
+                                </MudListItem>
+
+
+                                <MudDivider DividerType="DividerType.Inset" />
+
+
+                                <MudListItem Avatar="@Icons.TwoTone.Height">
+                                    <MudTextField T="double" @bind-Value="@inputValues.Weight" Label="(kg)"></MudTextField>
+                                </MudListItem>
+
+
+                                <MudDivider DividerType="DividerType.Inset" />
+
+
+                                <MudListItem Avatar="@Icons.Filled.DirectionsWalk">
+                                    <MudChipSet @bind-SelectedChip="selectedActivity" Filter="true" Mandatory="true">
+                                        <MudChip Text="Rask" Color="Color.Success" Default="true">Rask</MudChip>
+                                        <MudChip Text="Oppegående" Color="Color.Warning">Oppegående</MudChip>
+                                        <MudChip Text="Sengeliggende" Color="Color.Error">Sengeliggende</MudChip>
+                                    </MudChipSet>
+                                </MudListItem>
+                                @if (selectedActivity != null)
+                                {
+
+                                    switch (selectedActivity.Text)
+                                    {
+                                        default:
+                                        case "Rask":
+                                            inputValues.ActivityLevel = Activity.Healthy;
+                                            break;
+                                        case "Oppegående":
+                                            inputValues.ActivityLevel = Activity.Walking;
+                                            break;
+                                        case "Sengeliggende":
+                                            inputValues.ActivityLevel = Activity.InBed;
+                                            break;
+
+                                    }
+                                    CalcBMI();
+                                }
+
+                                <MudDivider DividerType="DividerType.Inset" />
+
+                                <MudListItem Avatar="@Icons.Filled.Thermostat">
+                                    <MudChipSet @bind-SelectedChip="selectedStress" Filter="true" Mandatory="true">
+                                        <MudChip Text="37" Color="Color.Success" Default="true">37</MudChip>
+                                        <MudChip Text="38" Color="Color.Success">38</MudChip>
+                                        <MudChip Text="39" Color="Color.Warning">39</MudChip>
+                                        <MudChip Text="40" Color="Color.Error">40</MudChip>
+                                        <MudChip Text="40+" Color="Color.Error">40+</MudChip>
+                                    </MudChipSet>
+                                </MudListItem>
+                                @if (selectedStress != null)
+                                {
+
+                                    switch (selectedStress.Text)
+                                    {
+                                        default:
+                                        case "37":
+                                            inputValues.StressLevel = Stress.NoStress;
+                                            break;
+                                        case "38":
+                                            inputValues.StressLevel = Stress.ThirthyEight;
+                                            break;
+                                        case "39":
+                                            inputValues.StressLevel = Stress.ThirthyNine;
+                                            break;
+                                        case "40":
+                                            inputValues.StressLevel = Stress.Forty;
+                                            break;
+                                        case "40+":
+                                            inputValues.StressLevel = Stress.Infections;
+                                            break;
+
+                                    }
+                                    CalcBMI();
+                                }
+
+                                <MudDivider DividerType="DividerType.Inset" />
 
+                                <MudListItem Avatar="@Icons.Filled.FoodBank">
+                                    <MudChipSet @bind-SelectedChip="selectedWeughtGain" Filter="true" Mandatory="true">
+                                        <MudChip Text="Nej" Color="Color.Success" Default="true">Nej</MudChip>
+                                        <MudChip Text="Ja" Color="Color.Info">Ja</MudChip>
 
-                <MudItem xs="8" sm="6" md="4" lg="3" xl="2">
-                    <MudCard Elevation="3">
-                        <MudCardHeader>
-                            <CardHeaderContent>
-                                <MudText Typo="Typo.h6">1) Indtast patient værdier</MudText>
-                            </CardHeaderContent>
-                            <CardHeaderActions>
-                                <MudIconButton Icon="@Icons.TwoTone.PersonalInjury" Color="Color.Default" />
-                            </CardHeaderActions>
-                        </MudCardHeader>
-                        <MudCardContent>
-                            <MudPaper Square="true">
-                                <MudList>
+                                    </MudChipSet>
+                                </MudListItem>
+                                @if (selectedWeughtGain != null)
+                                {
 
+                                    switch (selectedWeughtGain.Text)
+                                    {
+                                        default:
+                                        case "Nej":
+                                            inputValues.WeightGain = WeightGain.No;
+                                            break;
+                                        case "Ja":
+                                            inputValues.WeightGain = WeightGain.Yes;
+                                            break;
 
-                                    <MudListItem Avatar="@Icons.TwoTone.MonitorWeight">
-                                        <MudTextField T="double" @bind-Value="@inputValues.Height" Label="(cm)"></MudTextField>
-                                    </MudListItem>
 
+                                    }
+                                    CalcBMI();
+                                }
+                            </MudList>
+                        </MudPaper>
+                    </MudCardContent>
 
-                                    <MudDivider DividerType="DividerType.Inset" />
+                </MudCard>
 
+            </MudItem>
+            <MudItem xs="8" sm="6" md="4" lg="3" xl="2">
+                <MudCard Elevation="3">
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6">2) Væske tab</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.TwoTone.WaterDrop" Color="Color.Info" />
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudPaper Square="true">
+                            <MudList>
 
-                                    <MudListItem Avatar="@Icons.TwoTone.Height">
-                                        <MudTextField T="double" @bind-Value="@inputValues.Weight" Label="(kg)"></MudTextField>
-                                    </MudListItem>
 
+                                <MudListItem Avatar="@Icons.Filled.Air">
+                                    <MudTextField T="double" Label="Forventet aspirat" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedAspirat"></MudTextField>
+                                </MudListItem>
 
-                                    <MudDivider DividerType="DividerType.Inset" />
 
+                                <MudDivider DividerType="DividerType.Inset" />
 
-                                    <MudListItem Avatar="@Icons.Filled.DirectionsWalk">
-                                        <MudChipSet Filter="true" Mandatory="true">
-                                            <MudChip Text="green" Color="Color.Success">Rask</MudChip>
-                                            <MudChip Text="yellow" Color="Color.Warning">Oppegående</MudChip>
-                                            <MudChip Text="orange" Color="Color.Error">Sengeliggende</MudChip>
-                                        </MudChipSet>
-                                    </MudListItem>
 
-                                    <MudDivider DividerType="DividerType.Inset" />
+                                <MudListItem Avatar="@Icons.Filled.WaterDrop">
+                                    <MudTextField T="double" Label="Forventet dræntab" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedDrainageLoss"></MudTextField>
+                                </MudListItem>
 
-                                    <MudListItem Avatar="@Icons.Filled.Thermostat">
-                                        <MudChipSet Filter="true" Mandatory="true">
-                                            <MudChip Text="green" Color="Color.Success">37</MudChip>
-                                            <MudChip Text="yellow" Color="Color.Success">38</MudChip>
-                                            <MudChip Text="orange" Color="Color.Warning">39</MudChip>
 
-                                            <MudChip Text="orange" Color="Color.Error">40</MudChip>
-                                            <MudChip Text="orange" Color="Color.Error">40+</MudChip>
-                                        </MudChipSet>
-                                    </MudListItem>
+                                <MudDivider DividerType="DividerType.Inset" />
 
-                                    <MudDivider DividerType="DividerType.Inset" />
+                                <MudListItem Avatar="@Icons.Filled.AirlineSeatLegroomReduced">
+                                    <MudTextField T="double" Label="Forventet diurese" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedDiurese"></MudTextField>
+                                </MudListItem>
 
-                                    <MudListItem Avatar="@Icons.Filled.FoodBank">
-                                        <MudChipSet Filter="true" Mandatory="true">
-                                            <MudChip Text="green" Color="Color.Success">Nej</MudChip>
-                                            <MudChip Text="yellow" Color="Color.Info">Ja</MudChip>
 
-                                        </MudChipSet>
-                                    </MudListItem>
+                                <MudDivider DividerType="DividerType.Inset" />
 
-                                </MudList>
-                            </MudPaper>
-                        </MudCardContent>
 
-                    </MudCard>
+                                <MudListItem Avatar="@Icons.Filled.WaterDrop">
+                                    <MudTextField T="double" Label="Forventet andet" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedOther"></MudTextField>
+                                </MudListItem>
 
-                </MudItem>
-                <MudItem xs="8" sm="6" md="4" lg="3" xl="2">
-                    <MudCard Elevation="3">
-                        <MudCardHeader>
-                            <CardHeaderContent>
-                                <MudText Typo="Typo.h6">2) Væske tab</MudText>
-                            </CardHeaderContent>
-                            <CardHeaderActions>
-                                <MudIconButton Icon="@Icons.TwoTone.WaterDrop" Color="Color.Info" />
-                            </CardHeaderActions>
-                        </MudCardHeader>
-                        <MudCardContent>
-                            <MudPaper Square="true">
-                                <MudList>
 
+                                <MudDivider DividerType="DividerType.Inset" />
 
-                                    <MudListItem Avatar="@Icons.Filled.Air">
-                                        <MudTextField T="double" Label="Forventet aspirat" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedAspirat"></MudTextField>
-                                    </MudListItem>
+                                <MudButton Class="marginTop5" Color="Color.Primary" OnClick="CalcBMI" Variant="Variant.Filled">Beregn</MudButton>
 
 
-                                    <MudDivider DividerType="DividerType.Inset" />
+                            </MudList>
+                        </MudPaper>
+                    </MudCardContent>
 
+                </MudCard>
 
-                                    <MudListItem Avatar="@Icons.Filled.WaterDrop">
-                                        <MudTextField T="double" Label="Forventet dræntab" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedDrainageLoss"></MudTextField>
-                                    </MudListItem>
+            </MudItem>
+            <MudItem xs="8" sm="6" md="4" lg="3" xl="2">
+                <MudCard Elevation="3">
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6">3) Beregninger</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.TwoTone.Calculate" Color="Color.Info" />
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudPaper Square="true">
+                            <MudList>
 
 
-                                    <MudDivider DividerType="DividerType.Inset" />
+                                <MudListItem Avatar="@Icons.Filled.Air">
+                                    <MudTextField Label="BMI" ReadOnly="true" @bind-Value="@calculatedValues.BMI"></MudTextField>
+                                </MudListItem>
 
-                                    <MudListItem Avatar="@Icons.Filled.AirlineSeatLegroomReduced">
-                                        <MudTextField T="double" Label="Forventet diurese" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedDiurese"></MudTextField>
-                                    </MudListItem>
 
+                                <MudDivider DividerType="DividerType.Inset" />
 
-                                    <MudDivider DividerType="DividerType.Inset" />
 
+                                <MudListItem Avatar="@Icons.Filled.LocalFireDepartment">
+                                    <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kJ/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredEnergyKJPerDay"></MudTextField>
+                                    <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kcal/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredEnergyKcalPerDay"></MudTextField>
+                                    <MudTextField Label="Proteinbehov" Adornment="Adornment.End" AdornmentText="g/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredProteinGramPerDay"></MudTextField>
+                                </MudListItem>
 
-                                    <MudListItem Avatar="@Icons.Filled.WaterDrop">
-                                        <MudTextField T="double" Label="Forventet andet" Adornment="Adornment.End" AdornmentText="ml/døgn" @bind-Value="@inputValues.ExpectedOther"></MudTextField>
-                                    </MudListItem>
 
+                                <MudDivider DividerType="DividerType.Inset" />
 
-                                    <MudDivider DividerType="DividerType.Inset" />
+                                <MudListItem Avatar="@Icons.Filled.WaterDrop">
+                                    <MudTextField Label="Perspiratio incl. tp" Adornment="Adornment.End" AdornmentText="ml/døgn" ReadOnly="true" @bind-Value="@calculatedValues.Perspiratio"></MudTextField>
+                                    <MudTextField Label="Forbrændingsvand" Adornment="Adornment.End" AdornmentText="ml/døgn" ReadOnly="true" @bind-Value="@calculatedValues.Burning"></MudTextField>
+                                    <MudTextField Label="Væskebehov i alt" Adornment="Adornment.End" AdornmentText="ml/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredLiquidMLPerDay"></MudTextField>
+                                </MudListItem>
 
-                                    <MudButton Class="marginTop5" Color="Color.Primary" OnClick="calculation.Calculate" Variant="Variant.Filled">Beregn</MudButton>
 
 
-                                </MudList>
-                            </MudPaper>
-                        </MudCardContent>
+                            </MudList>
+                        </MudPaper>
+                    </MudCardContent>
 
-                    </MudCard>
+                </MudCard>
 
-                </MudItem>
-                <MudItem xs="8" sm="6" md="4" lg="3" xl="2">
-                    <MudCard Elevation="3">
-                        <MudCardHeader>
-                            <CardHeaderContent>
-                                <MudText Typo="Typo.h6">3) Beregninger</MudText>
-                            </CardHeaderContent>
-                            <CardHeaderActions>
-                                <MudIconButton Icon="@Icons.TwoTone.Calculate" Color="Color.Info" />
-                            </CardHeaderActions>
-                        </MudCardHeader>
-                        <MudCardContent>
-                            <MudPaper Square="true">
-                                <MudList>
+            </MudItem>
+            <MudItem xs="8" sm="6" md="4" lg="3" xl="2">
+                <MudCard Elevation="3">
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6">4) Planlagt indgift (drink)</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.TwoTone.LocalDrink" Color="Color.Info" />
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudPaper Square="true">
+                            <MudList>
 
 
-                                    <MudListItem Avatar="@Icons.Filled.Air">
-                                        <MudTextField Label="BMI" ReadOnly="true" @bind-Value="@calculatedValues.BMI"></MudTextField>
-                                    </MudListItem>
 
+                                <MudListItem Avatar="@Icons.Filled.Air">
+                                    <MudTextField T="int" Adornment="Adornment.End" AdornmentText="ml" Label="Fresubin 2 kcal"></MudTextField>
+                                </MudListItem>
 
-                                    <MudDivider DividerType="DividerType.Inset" />
 
+                                <MudDivider DividerType="DividerType.Inset" />
 
-                                    <MudListItem Avatar="@Icons.Filled.LocalFireDepartment">
-                                        <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kJ/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredEnergyKJPerDay"></MudTextField>
-                                        <MudTextField Label="Energibehov" Adornment="Adornment.End" AdornmentText="kcal/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredEnergyKcalPerDay"></MudTextField>
-                                        <MudTextField Label="Proteinbehov" Adornment="Adornment.End" AdornmentText="g/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredProteinGramPerDay"></MudTextField>
-                                    </MudListItem>
 
+                                <MudListItem Avatar="@Icons.Filled.WaterDrop">
+                                    <MudTextField T="int" Adornment="Adornment.End" AdornmentText="ml" Label="Nutridrink Compact Protein"></MudTextField>
+                                </MudListItem>
 
-                                    <MudDivider DividerType="DividerType.Inset" />
 
-                                    <MudListItem Avatar="@Icons.Filled.WaterDrop">
-                                        <MudTextField Label="Perspiratio incl. tp" Adornment="Adornment.End" AdornmentText="ml/døgn" ReadOnly="true" @bind-Value="@calculatedValues.Perspiratio"></MudTextField>
-                                        <MudTextField Label="Forbrændingsvand" Adornment="Adornment.End" AdornmentText="ml/døgn" ReadOnly="true" @bind-Value="@calculatedValues.Burning"></MudTextField>
-                                        <MudTextField Label="Væskebehov i alt" Adornment="Adornment.End" AdornmentText="ml/døgn" ReadOnly="true" @bind-Value="@calculatedValues.RequiredLiquidMLPerDay"></MudTextField>
-                                    </MudListItem>
+                                <MudDivider DividerType="DividerType.Inset" />
+                                <MudButton Class="marginTop5" Color="Color.Primary" OnClick="CalcBMI" Variant="Variant.Filled">Beregn</MudButton>
 
 
 
-                                </MudList>
-                            </MudPaper>
-                        </MudCardContent>
+                            </MudList>
+                        </MudPaper>
+                    </MudCardContent>
 
-                    </MudCard>
+                </MudCard>
 
-                </MudItem>
-                <MudItem xs="8" sm="6" md="4" lg="3" xl="2">
-                    <MudCard Elevation="3">
-                        <MudCardHeader>
-                            <CardHeaderContent>
-                                <MudText Typo="Typo.h6">4) Planlagt indgift (drink)</MudText>
-                            </CardHeaderContent>
-                            <CardHeaderActions>
-                                <MudIconButton Icon="@Icons.TwoTone.LocalDrink" Color="Color.Info" />
-                            </CardHeaderActions>
-                        </MudCardHeader>
-                        <MudCardContent>
-                            <MudPaper Square="true">
-                                <MudList>
 
+            </MudItem>
+            <MudItem xs="12" sm="12" md="8" lg="6" xl="4">
 
+                <MudCard Elevation="3">
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6">5) Sondeernæring</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.Filled.LocalHospital" Color="Color.Info" />
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
 
-                                    <MudListItem Avatar="@Icons.Filled.Air">
-                                        <MudTextField T="int" Adornment="Adornment.End" AdornmentText="ml" Label="Fresubin 2 kcal"></MudTextField>
-                                    </MudListItem>
 
+                        @foreach (ProbeType type in probeTypes)
+                        {
+                            <MudList>
+                                <MudListItem>
 
-                                    <MudDivider DividerType="DividerType.Inset" />
 
 
-                                    <MudListItem Avatar="@Icons.Filled.WaterDrop">
-                                        <MudTextField T="int" Adornment="Adornment.End" AdornmentText="ml" Label="Nutridrink Compact Protein"></MudTextField>
-                                    </MudListItem>
+                                    <MudCard>
+                                        <MudCardHeader>
+                                            <CardHeaderContent>
+                                                <MudText><strong>@type.Name</strong></MudText>
+                                            </CardHeaderContent>
+                                        </MudCardHeader>
 
+                                        <MudCardContent>
+                                            <div class="row">
+                                                <MudTextField Class="width5 floatRight marginRight2" Label="Dosis" @bind-Value="@type.Dosis" ReadOnly="true"></MudTextField>
+                                                <MudTextField Class="width5 floatRight" Label="Supplerende væske" @bind-Value="@type.AdditionalLiquid" ReadOnly="true"></MudTextField>
 
-                                    <MudDivider DividerType="DividerType.Inset" />
-                                    <MudButton Class="marginTop5" Color="Color.Primary" OnClick="calculation.Calculate" Variant="Variant.Filled">Beregn</MudButton>
+                                            </div>
 
+                                            <div class="row">
+                                                <MudTextField Class="floatRight width5 marginRight2" Label="Energi - behov" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.RequiredEnergyKcal" ReadOnly="true"></MudTextField>
+                                                <MudTextField Class="floatRight width5 marginRight2" Label="Energi - indhold" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.ReceivedEnergyKcal" ReadOnly="true"></MudTextField>
+                                                <MudTextField Class="floatRight width5" Label="Energi - difference" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.EnergyKcalDifference" ReadOnly="true"></MudTextField>
+                                            </div>
 
 
-                                </MudList>
-                            </MudPaper>
-                        </MudCardContent>
+                                            <div class="row">
+                                                <MudTextField Class="floatRight width5 marginRight2" Label="Protein - behov" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.RequiredProtein" ReadOnly="true"></MudTextField>
+                                                <MudTextField Class="floatRight width5 marginRight2" Label="Protein - indhold" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ReceivedProtein" ReadOnly="true"></MudTextField>
+                                                <MudTextField Class="floatRight width5" Label="Protein - difference" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ProteinGramDifference" ReadOnly="true"></MudTextField>
+                                            </div>
+                                        </MudCardContent>
+                                    </MudCard>
 
-                    </MudCard>
+                                </MudListItem>
+                            </MudList>
+                        }
 
 
-                </MudItem>
-                <MudItem xs="12" sm="12" md="8" lg="6"	xl="4">
 
-                    <MudCard Elevation="3">
-                        <MudCardHeader>
-                            <CardHeaderContent>
-                                <MudText Typo="Typo.h6">5) Sondeernæring</MudText>
-                            </CardHeaderContent>
-                            <CardHeaderActions>
-                                <MudIconButton Icon="@Icons.Filled.LocalHospital" Color="Color.Info" />
-                            </CardHeaderActions>
-                        </MudCardHeader>
-                        <MudCardContent>
+                    </MudCardContent>
 
+                </MudCard>
 
-                            @foreach (ProbeType type in probeTypes)
-                            {
-                                <MudList>
-                                    <MudListItem>
 
-
-
-                                        <MudCard>
-                                            <MudCardHeader>
-                                                <CardHeaderContent>
-                                                    <MudText><strong>@type.Name</strong></MudText>
-                                                </CardHeaderContent>
-                                            </MudCardHeader>
-
-                                            <MudCardContent>
-                                                <div class="row">
-                                                    <MudTextField Class="width5 floatRight marginRight2" Label="Dosis" @bind-Value="@type.Dosis" ReadOnly="true"></MudTextField>
-                                                    <MudTextField Class="width5 floatRight" Label="Supplerende væske" @bind-Value="@type.AdditionalLiquid" ReadOnly="true"></MudTextField>
-
-                                                </div>
-
-                                                <div class="row">
-                                                    <MudTextField Class="floatRight width5 marginRight2" Label="Energi - behov" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.RequiredEnergyKcal" ReadOnly="true"></MudTextField>
-                                                    <MudTextField Class="floatRight width5 marginRight2" Label="Energi - indhold" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.ReceivedEnergyKcal" ReadOnly="true"></MudTextField>
-                                                    <MudTextField Class="floatRight width5" Label="Energi - difference" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.EnergyKcalDifference" ReadOnly="true"></MudTextField>
-                                                </div>
-
-
-                                                <div class="row">
-                                                    <MudTextField Class="floatRight width5 marginRight2" Label="Protein - behov" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.RequiredProtein" ReadOnly="true"></MudTextField>
-                                                    <MudTextField Class="floatRight width5 marginRight2" Label="Protein - indhold" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ReceivedProtein" ReadOnly="true"></MudTextField>
-                                                    <MudTextField Class="floatRight width5" Label="Protein - difference" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ProteinGramDifference" ReadOnly="true"></MudTextField>
-                                                </div>
-                                            </MudCardContent>
-                                        </MudCard>
-
-                                    </MudListItem>
-                                </MudList>
-                            }
-
-
-
-                        </MudCardContent>
-
-                    </MudCard>
-
-
-                </MudItem>
-            </MudGrid>
-        </MudItem>
-    </MudGrid>
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+</MudGrid>
 
 
 
 @code{
-
+    bool mandatory = true;
+    MudChip selectedActivity;
+    MudChip selectedStress;
+    MudChip selectedWeughtGain;
 
 
     ProbeType[] probeTypes = new[]
-    {
+{
         new ProbeType() { Name = "Nutrison Protein Plus", EnergyKcalPerDosisML = 1.25, ProteinPerDosisL = 63 },
         new ProbeType() { Name = "Fresubin Energy", EnergyKcalPerDosisML = 1.5, ProteinPerDosisL = 56 },
         new ProbeType() { Name = "Fresubin 2 kcal", EnergyKcalPerDosisML = 2, ProteinPerDosisL = 100 },
@@ -326,6 +388,168 @@
         GetEnumDescriptions();
     }
 
+    void CalcBMI()
+    {
+        calculatedValues.BMI = Math.Round((inputValues.Weight / Math.Pow(inputValues.Height / 100, 2)), 1);
+        CalcEnergiBehovKJ();
+        CalcEnergiBehovKCAL();
+        CalcProtinBehov();
+        CalcPerspiration();
+        CalcForbrændingsvand();
+        Ialtvæske();
+    }
 
 
+
+    void CalcEnergiBehovKJ()
+
+    {
+        var bmi = calculatedValues.BMI;
+        //var Output = (if statement) ? True: else;
+
+        //Meget høj BMI
+        var Høj_BMI_Komp = (bmi < 30) ? 100 : 85;
+
+        //Vægt
+        var vægt = inputValues.Weight;
+
+        //Aktivitets niveau
+        var Aktivitets_Komp = 0.0;
+        if (inputValues.ActivityLevel == Activity.InBed)
+        {
+            Aktivitets_Komp = 1.1;
+        }
+        else if (inputValues.ActivityLevel == Activity.Walking)
+        {
+            Aktivitets_Komp = 1.3;
+        }
+        else
+        {
+            Aktivitets_Komp = 1.5;
+        }
+
+        //Lav BMI
+        var Lav_BMI_Komp = (bmi < 20) ? 1.3 : 1;
+
+
+        //Stress niveau v. Midel->Høj BMI
+        var BMI_Strees_Komp = 0.0;
+        if (bmi >= 20)
+        {
+            if (inputValues.StressLevel == Stress.NoStress)
+            {
+                BMI_Strees_Komp = 1;
+            }
+            else if (inputValues.StressLevel == Stress.ThirthyEight)
+            {
+                BMI_Strees_Komp = 1.2;
+            }
+            else if (inputValues.StressLevel == Stress.ThirthyNine)
+            {
+                BMI_Strees_Komp = 1.3;
+            }
+            else if (inputValues.StressLevel == Stress.Forty)
+            {
+                BMI_Strees_Komp = 1.4;
+            }
+            else
+            {
+                BMI_Strees_Komp = 1.3;
+            }
+        }
+        else //Ved lav BMI
+        {
+            BMI_Strees_Komp = 1;
+        }
+
+        //Vægtøgning v. Middel og Høj BMI
+        var BMI_Strees_Vægtøgning_Komp = 0.0;
+        if (bmi >= 20)
+        {
+            if (inputValues.StressLevel == Stress.NoStress)
+            {
+                BMI_Strees_Vægtøgning_Komp = 1;
+                if (inputValues.WeightGain == WeightGain.No)
+                {
+                    BMI_Strees_Vægtøgning_Komp = 1;
+                }
+                else
+                {
+                    BMI_Strees_Vægtøgning_Komp = 1.3;
+                }
+            }
+            else
+            { BMI_Strees_Vægtøgning_Komp = 1; }
+
+        }
+        else
+        {
+            BMI_Strees_Vægtøgning_Komp = 1;
+        }
+        calculatedValues.RequiredEnergyKJPerDay = Math.Round(Høj_BMI_Komp * vægt * Aktivitets_Komp * Lav_BMI_Komp * BMI_Strees_Komp * BMI_Strees_Vægtøgning_Komp);
+
+    }
+
+    void CalcEnergiBehovKCAL()
+    {
+        calculatedValues.RequiredEnergyKcalPerDay = Math.Round(calculatedValues.RequiredEnergyKJPerDay / 4.2, 0);
+    }
+
+    void CalcProtinBehov()
+    {
+        var vægt = inputValues.Weight;
+        var number = 0.0;
+        if (inputValues.ActivityLevel == Activity.Healthy)
+        {
+
+            number = 0.8;
+        }
+        else number = 1.5;
+
+        calculatedValues.RequiredProteinGramPerDay = Math.Round(vægt * number);
+    }
+
+    void CalcVæskebehov()
+    {
+
+    }
+    void CalcPerspiration()
+    {
+        var number = 10;
+        var vægt = inputValues.Weight;
+        var streesFaktor = 0.0;
+        switch (inputValues.StressLevel)
+        {
+            default:
+            case Stress.NoStress:
+                streesFaktor = 1;
+                break;
+            case Stress.ThirthyEight:
+                streesFaktor = 1.2;
+                break;
+            case Stress.ThirthyNine:
+                streesFaktor = 1.4;
+                break;
+            case Stress.Forty:
+                streesFaktor = 1.6;
+                break;
+            case Stress.Infections:
+                streesFaktor = 1.4;
+                break;
+
+        }
+
+        calculatedValues.Perspiratio = Math.Round(number * vægt*streesFaktor);
+
+    }
+
+    void CalcForbrændingsvand()
+    {
+        calculatedValues.Burning = Math.Round(calculatedValues.RequiredEnergyKcalPerDay*0.135*(-1));
+    }
+
+    void Ialtvæske()
+    {
+        calculatedValues.RequiredLiquidMLPerDay = calculatedValues.Perspiratio + calculatedValues.Burning + inputValues.ExpectedAspirat + inputValues.ExpectedDrainageLoss + inputValues.ExpectedDiurese + inputValues.ExpectedOther;
+    }
 }
