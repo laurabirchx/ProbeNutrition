@@ -14,8 +14,16 @@
     float: right;
 }
 
+.fontweightBold{
+    font-weight: bold;
+}
+
 .floatLeft{
     float: left;
+}
+
+.marginTop2{
+    margin-top: 2%;
 }
 
 .marginTop5{
