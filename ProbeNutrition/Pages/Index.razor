@@ -40,14 +40,14 @@
                         <MudList>
 
                             <MudListItem>
-                                
-                                    <MudTooltip Text="Vægt">
-                                        <MudAvatar>
-                                            <MudIcon Icon="@Icons.TwoTone.MonitorWeight"></MudIcon>
-                                        </MudAvatar>
-                                    </MudTooltip>
 
-                                    <MudTextField T="double" @bind-Value="@inputValues.Height" Label="(cm)"></MudTextField>
+                                <MudTooltip Text="Vægt">
+                                    <MudAvatar>
+                                        <MudIcon Icon="@Icons.TwoTone.MonitorWeight"></MudIcon>
+                                    </MudAvatar>
+                                </MudTooltip>
+
+                                <MudTextField T="double" @bind-Value="@inputValues.Height" Label="(cm)"></MudTextField>
                             </MudListItem>
 
 
@@ -280,7 +280,7 @@
 
         <MudItem xs="12" sm="12" md="8" lg="6" xl="4">
 
-            <MudTabPanel Text="Sondeernærning"  @ref="panel02" ID="@("pn_two")">
+            <MudTabPanel Text="Sondeernærning" @ref="panel02" ID="@("pn_two")">
                 <MudCard Elevation="3">
 
                     <MudCardHeader>
@@ -343,6 +343,7 @@
     MudTabs tabs;
     MudTabPanel panel01;
     MudTabPanel panel02;
+    double diurese = 1.0;
 
     void Activate(object id)
     {
