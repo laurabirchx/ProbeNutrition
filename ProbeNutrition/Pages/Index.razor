@@ -36,16 +36,16 @@
                         <MudPaper Square="true">
                             <MudList>
 
-                            <MudListItem>
+                                <MudListItem>
 
-                                <MudTooltip Text="Vægt">
-                                    <MudAvatar>
-                                        <MudIcon Icon="@Icons.TwoTone.MonitorWeight"></MudIcon>
-                                    </MudAvatar>
-                                </MudTooltip>
+                                    <MudTooltip Text="Vægt">
+                                        <MudAvatar>
+                                            <MudIcon Icon="@Icons.TwoTone.MonitorWeight"></MudIcon>
+                                        </MudAvatar>
+                                    </MudTooltip>
 
-                                <MudTextField T="double" @bind-Value="@inputValues.Height" Label="(cm)"></MudTextField>
-                            </MudListItem>
+                                    <MudTextField T="double" @bind-Value="@inputValues.Height" Label="(cm)"></MudTextField>
+                                </MudListItem>
 
 
                                 <MudDivider DividerType="DividerType.Inset" />
@@ -126,16 +126,16 @@
                                 <MudDivider DividerType="DividerType.Inset" />
 
                                 <MudListItem Avatar="@Icons.Filled.FoodBank">
-                                    <MudChipSet @bind-SelectedChip="selectedWeughtGain" Filter="true" Mandatory="true">
+                                    <MudChipSet @bind-SelectedChip="selectedWeightGain" Filter="true" Mandatory="true">
                                         <MudChip Text="Nej" Color="Color.Success" Default="true">Nej</MudChip>
                                         <MudChip Text="Ja" Color="Color.Info">Ja</MudChip>
 
                                     </MudChipSet>
                                 </MudListItem>
-                                @if (selectedWeughtGain != null)
+                                @if (selectedWeightGain != null)
                                 {
 
-                                    switch (selectedWeughtGain.Text)
+                                    switch (selectedWeightGain.Text)
                                     {
                                         default:
                                         case "Nej":
@@ -302,65 +302,65 @@
             </MudItem>
             <MudItem xs="12" sm="12" md="8" lg="6" xl="4">
 
-            <MudTabPanel Text="Sondeernærning" @ref="panel02" ID="@("pn_two")">
-                <MudCard Elevation="3">
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudText Typo="Typo.h6">5) Sondeernæring</MudText>
-                        </CardHeaderContent>
-                        <CardHeaderActions>
-                            <MudIconButton Icon="@Icons.Filled.LocalHospital" Color="Color.Info" />
-                        </CardHeaderActions>
-                    </MudCardHeader>
-                    <MudCardContent>
+                <MudTabPanel Text="Sondeernærning" @ref="panel02" ID="@("pn_two")">
+                    <MudCard Elevation="3">
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h6">5) Sondeernæring</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Filled.LocalHospital" Color="Color.Info" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
 
 
-                        @foreach (ProbeType type in probeTypes)
-                        {
-                            <MudList>
-                                <MudListItem>
-
-
-
-                                    <MudCard>
-                                        <MudCardHeader>
-                                            <CardHeaderContent>
-                                                <MudText><strong>@type.Name</strong></MudText>
-                                            </CardHeaderContent>
-                                        </MudCardHeader>
-
-                                        <MudCardContent>
-                                            <div class="row">
-                                                <MudTextField Class="width5 floatRight marginRight2" Label="Dosis" @bind-Value="@type.Dosis" ReadOnly="true"></MudTextField>
-                                                <MudTextField Class="width5 floatRight" Label="Supplerende væske" @bind-Value="@type.AdditionalLiquid" ReadOnly="true"></MudTextField>
-
-                                            </div>
-
-                                            <div class="row">
-                                                <MudTextField Class="floatRight width5 marginRight2" Label="Energi - behov" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.RequiredEnergyKcal" ReadOnly="true"></MudTextField>
-                                                <MudTextField Class="floatRight width5 marginRight2" Label="Energi - indhold" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.ReceivedEnergyKcal" ReadOnly="true"></MudTextField>
-                                                <MudTextField Class="floatRight width5" Label="Energi - difference" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.EnergyKcalDifference" ReadOnly="true"></MudTextField>
-                                            </div>
-
-
-                                            <div class="row">
-                                                <MudTextField Class="floatRight width5 marginRight2" Label="Protein - behov" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.RequiredProtein" ReadOnly="true"></MudTextField>
-                                                <MudTextField Class="floatRight width5 marginRight2" Label="Protein - indhold" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ReceivedProtein" ReadOnly="true"></MudTextField>
-                                                <MudTextField Class="floatRight width5" Label="Protein - difference" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ProteinGramDifference" ReadOnly="true"></MudTextField>
-                                            </div>
-                                        </MudCardContent>
-                                    </MudCard>
-
-                                </MudListItem>
-                            </MudList>
-                        }
+                            @foreach (ProbeType type in probeTypes)
+                            {
+                                <MudList>
+                                    <MudListItem>
 
 
 
-                    </MudCardContent>
+                                        <MudCard>
+                                            <MudCardHeader>
+                                                <CardHeaderContent>
+                                                    <MudText><strong>@type.Name</strong></MudText>
+                                                </CardHeaderContent>
+                                            </MudCardHeader>
 
-                </MudCard>
+                                            <MudCardContent>
+                                                <div class="row">
+                                                    <MudTextField Class="width5 floatRight marginRight2" Label="Dosis" @bind-Value="@type.Dosis" ReadOnly="true"></MudTextField>
+                                                    <MudTextField Class="width5 floatRight" Label="Supplerende væske" @bind-Value="@type.AdditionalLiquid" ReadOnly="true"></MudTextField>
 
+                                                </div>
+
+                                                <div class="row">
+                                                    <MudTextField Class="floatRight width5 marginRight2" Label="Energi - behov" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.RequiredEnergyKcal" ReadOnly="true"></MudTextField>
+                                                    <MudTextField Class="floatRight width5 marginRight2" Label="Energi - indhold" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.ReceivedEnergyKcal" ReadOnly="true"></MudTextField>
+                                                    <MudTextField Class="floatRight width5" Label="Energi - difference" Adornment="Adornment.End" AdornmentText="kcal" @bind-Value="@type.EnergyKcalDifference" ReadOnly="true"></MudTextField>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <MudTextField Class="floatRight width5 marginRight2" Label="Protein - behov" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.RequiredProtein" ReadOnly="true"></MudTextField>
+                                                    <MudTextField Class="floatRight width5 marginRight2" Label="Protein - indhold" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ReceivedProtein" ReadOnly="true"></MudTextField>
+                                                    <MudTextField Class="floatRight width5" Label="Protein - difference" Adornment="Adornment.End" AdornmentText="g" @bind-Value="@type.ProteinGramDifference" ReadOnly="true"></MudTextField>
+                                                </div>
+                                            </MudCardContent>
+                                        </MudCard>
+
+                                    </MudListItem>
+                                </MudList>
+                            }
+
+
+
+                        </MudCardContent>
+
+                    </MudCard>
+                </MudTabPanel>
 
             </MudItem>
         </MudGrid>
@@ -369,7 +369,7 @@
 
 
 
-@code{
+@code {
     bool mandatory = true;
     MudChip selectedActivity;
     MudChip selectedStress;
@@ -382,7 +382,7 @@
 
 
     ProbeType[] probeTypes = new[]
-{
+    {
         new ProbeType() { Name = "Nutrison Protein Plus", EnergyKcalPerDosisML = 1.25, ProteinPerDosisL = 63 },
         new ProbeType() { Name = "Fresubin Energy", EnergyKcalPerDosisML = 1.5, ProteinPerDosisL = 56 },
         new ProbeType() { Name = "Fresubin 2 kcal", EnergyKcalPerDosisML = 2, ProteinPerDosisL = 100 },
@@ -551,13 +551,13 @@
 
         }
 
-        calculatedValues.Perspiratio = Math.Round(number * vægt*streesFaktor);
+        calculatedValues.Perspiratio = Math.Round(number * vægt * streesFaktor);
 
     }
 
     void CalcForbrændingsvand()
     {
-        calculatedValues.Burning = Math.Round(calculatedValues.RequiredEnergyKcalPerDay*0.135*(-1));
+        calculatedValues.Burning = Math.Round(calculatedValues.RequiredEnergyKcalPerDay * 0.135 * (-1));
     }
 
     void Ialtvæske()
